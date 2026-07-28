@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HelpDeskPro2026.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260720210429_InitialInfrastructure")]
-    partial class InitialInfrastructure
+    [Migration("20260721214453_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

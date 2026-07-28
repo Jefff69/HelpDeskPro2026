@@ -1,0 +1,89 @@
+@model HelpDeskPro2026.Models.Usuario
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Usuario</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="SupabaseUserId" class="control-label"></label>
+                <input asp-for="SupabaseUserId" class="form-control" />
+                <span asp-validation-for="SupabaseUserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Apellidos" class="control-label"></label>
+                <input asp-for="Apellidos" class="form-control" />
+                <span asp-validation-for="Apellidos" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Correo" class="control-label"></label>
+                <input asp-for="Correo" class="form-control" />
+                <span asp-validation-for="Correo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FotoUrl" class="control-label"></label>
+                <input asp-for="FotoUrl" class="form-control" />
+                <span asp-validation-for="FotoUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Activo" class="control-label"></label>
+                <input asp-for="Activo" class="form-check-input" />
+                <span asp-validation-for="Activo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaCreacion" class="control-label"></label>
+                <input asp-for="FechaCreacion" class="form-control" />
+                <span asp-validation-for="FechaCreacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaActualizacion" class="control-label"></label>
+                <input asp-for="FechaActualizacion" class="form-control" />
+                <span asp-validation-for="FechaActualizacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UltimoAcceso" class="control-label"></label>
+                <input asp-for="UltimoAcceso" class="form-control" />
+                <span asp-validation-for="UltimoAcceso" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RolId" class="control-label"></label>
+                <input asp-for="RolId" class="form-control" />
+                <span asp-validation-for="RolId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rol" class="control-label"></label>
+                <input asp-for="Rol" class="form-control" />
+                <span asp-validation-for="Rol" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NombreCompleto" class="control-label"></label>
+                <input asp-for="NombreCompleto" class="form-control" />
+                <span asp-validation-for="NombreCompleto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

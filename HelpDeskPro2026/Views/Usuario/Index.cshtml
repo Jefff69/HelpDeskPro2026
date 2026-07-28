@@ -1,0 +1,101 @@
+@model IEnumerable<HelpDeskPro2026.Models.Usuario>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Rol</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SupabaseUserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Apellidos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Correo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FotoUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Activo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaCreacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaActualizacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UltimoAcceso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RolId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rol)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreCompleto)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.SupabaseUserId)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Apellidos)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Correo)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.FotoUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Activo)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.FechaCreacion)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.FechaActualizacion)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.UltimoAcceso)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.RolId)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Rol)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.NombreCompleto)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
