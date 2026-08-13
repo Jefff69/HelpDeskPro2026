@@ -1,8 +1,319 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-4">
+
+    <div class="p-5 mb-5 bg-primary text-white rounded shadow">
+
+        <div class="row align-items-center">
+
+            <div class="col-md-8">
+
+                <h1 class="display-4 fw-bold">
+                    <i class="bi bi-headset"></i>
+                    HelpDesk Pro
+                </h1>
+
+                <h4 class="mb-4">
+                    HelpDesk Pro
+
+                    Plataforma de Administración y Soporte
+                </h4>
+
+                <p class="lead">
+
+                    Bienvenido a <strong>HelpDesk Pro</strong>, una plataforma desarrollada para administrar
+                    usuarios, catálogos y futuras incidencias de soporte técnico de una manera
+                    rápida, organizada y segura.
+
+                </p>
+
+                @if (User.Identity?.IsAuthenticated != true)
+                {
+                    <a asp-controller="Account"
+                       asp-action="Login"
+                       class="btn btn-light btn-lg">
+
+                        <i class="bi bi-box-arrow-in-right"></i>
+
+                        Iniciar Sesión
+
+                    </a>
+                }
+
+            </div>
+
+            <div class="col-md-4 text-center">
+
+                <i class="bi bi-laptop display-1"></i>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="text-center mb-5">
+
+    <h2 class="fw-bold">
+        Bienvenido a HelpDesk Pro
+    </h2>
+
+    <p class="text-muted fs-5">
+
+        Seleccione el módulo que desea administrar.
+
+    </p>
+
+</div>
+
+<div class="row">
+
+    <div class="col-md-6 mb-4">
+
+        <div class="card shadow h-100">
+
+            <div class="card-body text-center">
+
+                <i class="bi bi-people-fill display-3 text-primary"></i>
+
+                <h3 class="mt-3">
+                    Usuarios
+                </h3>
+
+                <p class="text-muted">
+
+                    Administre los usuarios del sistema,
+                    roles y fotografías de perfil.
+
+                </p>
+
+                <a asp-controller="Usuario"
+                   asp-action="Index"
+                   class="btn btn-primary">
+
+                    <i class="bi bi-arrow-right-circle"></i>
+
+                    Ir al módulo
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-6 mb-4">
+
+        <div class="card shadow h-100">
+
+            <div class="card-body text-center">
+
+                <i class="bi bi-folder-fill display-3 text-warning"></i>
+
+                <h3 class="mt-3">
+                    Catálogos
+                </h3>
+
+                <p class="text-muted">
+
+                    Administre Sistemas,
+                    Categorías, Riesgos,
+                    Prioridades y Estados.
+
+                </p>
+
+                <a asp-controller="Sistema"
+                   asp-action="Index"
+                   class="btn btn-warning text-dark">
+
+                    <i class="bi bi-arrow-right-circle"></i>
+
+                    Explorar
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<div class="mt-5">
+
+    <div class="text-center mb-4">
+
+        <h2>
+            <i class="bi bi-stars text-warning"></i>
+            Características principales
+        </h2>
+
+        <p class="text-muted">
+            HelpDesk Pro integra las herramientas necesarias para una administración organizada y segura.
+        </p>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-4 mb-3">
+
+            <div class="card h-100 shadow-sm">
+
+                <div class="card-body text-center">
+
+                    <i class="bi bi-people-fill display-5 text-primary"></i>
+
+                    <h5 class="mt-3">Gestión de Usuarios</h5>
+
+                    <p class="text-muted">
+                        Administración de usuarios, roles y fotografías de perfil.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4 mb-3">
+
+            <div class="card h-100 shadow-sm">
+
+                <div class="card-body text-center">
+
+                    <i class="bi bi-shield-lock-fill display-5 text-success"></i>
+
+                    <h5 class="mt-3">Autenticación Segura</h5>
+
+                    <p class="text-muted">
+                        Inicio de sesión mediante Supabase Authentication y control por roles.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4 mb-3">
+
+            <div class="card h-100 shadow-sm">
+
+                <div class="card-body text-center">
+
+                    <i class="bi bi-cloud-arrow-up-fill display-5 text-info"></i>
+
+                    <h5 class="mt-3">Almacenamiento</h5>
+
+                    <p class="text-muted">
+                        Gestión de fotografías utilizando Supabase Storage.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<div class="mt-5">
+
+    <div class="text-center mb-4">
+
+        <h2>
+            <i class="bi bi-cpu-fill text-primary"></i>
+            Tecnologías Utilizadas
+        </h2>
+
+        <p class="text-muted">
+            Este proyecto fue desarrollado utilizando tecnologías modernas para garantizar seguridad, rendimiento y escalabilidad.
+        </p>
+
+    </div>
+
+    <div class="row text-center">
+
+        <div class="col-md-2 col-6 mb-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <i class="bi bi-window display-5 text-primary"></i>
+                    <h6 class="mt-3">ASP.NET Core MVC</h6>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2 col-6 mb-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <i class="bi bi-database-fill display-5 text-success"></i>
+                    <h6 class="mt-3">SQL Server</h6>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2 col-6 mb-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <i class="bi bi-cloud-fill display-5 text-info"></i>
+                    <h6 class="mt-3">Supabase</h6>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2 col-6 mb-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <i class="bi bi-shield-lock-fill display-5 text-warning"></i>
+                    <h6 class="mt-3">Authentication</h6>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2 col-6 mb-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <i class="bi bi-image-fill display-5 text-danger"></i>
+                    <h6 class="mt-3">Storage</h6>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2 col-6 mb-3">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <i class="bi bi-bootstrap-fill display-5 text-purple"></i>
+                    <h6 class="mt-3">Bootstrap 5</h6>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<hr class="my-5" />
+
+<div class="text-center text-muted mb-4">
+
+    <h5 class="fw-bold">
+        HelpDesk Pro
+    </h5>
+
+    <p>
+        Plataforma de Administración y Soporte
+    </p>
+
+    <small>
+        Proyecto desarrollado para el curso Programación V<br />
+        Universidad Castro Carazo · 2026
+    </small>
+
 </div>

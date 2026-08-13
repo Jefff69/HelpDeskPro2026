@@ -1,20 +1,30 @@
 
 using HelpDeskPro2026.Data;
+using HelpDeskPro2026.Interfaces;
 using HelpDeskPro2026.Models;
 using HelpDeskPro2026.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
+[Authorize]
 public class UsuarioController : Controller
 {
     private readonly IUsuarioService _usuarioService;
     private readonly AppDbContext _context;
+    private readonly ISupabaseAuthService _authService;
 
-    public UsuarioController(IUsuarioService usuarioService, AppDbContext context)
+
+
+    public UsuarioController(
+        IUsuarioService usuarioService,
+        AppDbContext context,
+        ISupabaseAuthService authService)
     {
         _usuarioService = usuarioService;
         _context = context;
+        _authService = authService;
     }
 
     // GET: USUARIOS
@@ -44,6 +54,11 @@ public class UsuarioController : Controller
     // GET: USUARIOS/Create
     public IActionResult Create()
     {
+        ViewData["RolId"] = new SelectList(
+            _context.Roles,
+            "Id",
+            "Nombre");
+
         return View();
     }
 
@@ -52,17 +67,56 @@ public class UsuarioController : Controller
     // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,SupabaseUserId,Nombre,Apellidos,Correo,FotoUrl,Activo,FechaCreacion,FechaActualizacion,UltimoAcceso,RolId,Rol,NombreCompleto")] Usuario usuario)
+    public async Task<IActionResult> Create([Bind("Nombre,Apellidos,Correo,Activo,RolId")] Usuario usuario)
     {
         if (ModelState.IsValid)
         {
             try
             {
-                await _usuarioService.CrearAsync(usuario);
+                // Contraseña temporal
+                var passwordTemporal = "Temp12345!";
 
-                TempData["Success"] = "El usuario se creó correctamente.";
 
-                return RedirectToAction(nameof(Index));
+                bool existeCorreo = (await _usuarioService.ObtenerTodosAsync())
+                      .Any(u => u.Correo == usuario.Correo);
+
+                if (existeCorreo)
+                {
+                    ModelState.AddModelError("", "Ya existe un usuario con ese correo.");
+
+                    ViewData["RolId"] = new SelectList(
+                        _context.Roles,
+                        "Id",
+                        "Nombre",
+                        usuario.RolId);
+
+                    return View(usuario);
+                }
+
+                // Crear usuario en Supabase
+                var supabaseUserId = await _authService.CreateUserAsync(
+                    usuario.Correo,
+                    passwordTemporal);
+
+                if (string.IsNullOrEmpty(supabaseUserId))
+                {
+                    ModelState.AddModelError("", "No fue posible crear el usuario en Supabase.");
+                }
+                else
+                {
+                    usuario.SupabaseUserId = supabaseUserId;
+
+                    usuario.Rol = null;
+                    usuario.FechaCreacion = DateTime.UtcNow;
+                    usuario.FechaActualizacion = null;
+                    usuario.UltimoAcceso = null;
+
+                    await _usuarioService.CrearAsync(usuario);
+
+                    TempData["Success"] = "El usuario se creó correctamente.";
+
+                    return RedirectToAction(nameof(Index));
+                }
             }
             catch (InvalidOperationException ex)
             {

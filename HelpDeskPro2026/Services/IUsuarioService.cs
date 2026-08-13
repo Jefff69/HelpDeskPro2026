@@ -10,5 +10,8 @@ namespace HelpDeskPro2026.Services
         Task ActualizarAsync(Usuario usuario);
         Task EliminarAsync(int id);
         Task<bool> ExisteAsync(int id);
+        Task<Usuario?> ObtenerPorSupabaseUserIdAsync(string supabaseUserId);
+        Task ActualizarFotoAsync(int usuarioId, string fotoUrl);
+        Task<string?> ObtenerFotoAsync(int usuarioId);
     }
 }

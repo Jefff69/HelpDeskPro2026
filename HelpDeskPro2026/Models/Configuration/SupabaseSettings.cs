@@ -4,6 +4,10 @@
     {
         public string Url { get; set; } = string.Empty;
 
-        public string Key { get; set; } = string.Empty;
+        // Para Authentication
+        public string AnonKey { get; set; } = string.Empty;
+
+        // Para Storage (Service Role)
+        public string ServiceRoleKey { get; set; } = string.Empty;
     }
 }

@@ -25,7 +25,6 @@
     <Folder Include="Helpers\" />
     <Folder Include="Extensions\" />
     <Folder Include="Middleware\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
 
 </Project>

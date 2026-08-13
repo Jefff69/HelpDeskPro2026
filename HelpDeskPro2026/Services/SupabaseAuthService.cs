@@ -14,7 +14,7 @@ namespace HelpDeskPro2026.Services
 
         public async Task<User?> SignInAsync(string email, string password)
         {
-            var client = _supabaseClient.GetClient();
+            var client = _supabaseClient.GetAuthClient();
 
             var session = await client.Auth.SignIn(email, password);
 
@@ -23,7 +23,7 @@ namespace HelpDeskPro2026.Services
 
         public async Task SignOutAsync()
         {
-            var client = _supabaseClient.GetClient();
+            var client = _supabaseClient.GetAuthClient();
 
             await client.Auth.SignOut();
         }
@@ -31,9 +31,35 @@ namespace HelpDeskPro2026.Services
 
         public User? GetCurrentUser()
         {
-            var client = _supabaseClient.GetClient();
+            var client = _supabaseClient.GetAuthClient();
 
             return client.Auth.CurrentUser;
         }
+
+        public async Task<string?> CreateUserAsync(
+            string email,
+            string password)
+        {
+            try
+            {
+                var client = _supabaseClient.GetAuthClient();
+
+                var session = await client.Auth.SignUp(
+                    Constants.SignUpType.Email,
+                    email,
+                    password);
+
+                return session?.User?.Id;
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException(
+                    $"No fue posible crear el usuario en Supabase. {ex.Message}");
+            }
+        }
+
+
+
+
     }
 }

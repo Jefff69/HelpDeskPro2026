@@ -45,6 +45,8 @@ builder.Services.AddScoped<IEstadoService, EstadoService>();
 
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
+builder.Services.AddScoped<IStorageService, StorageService>();
+
 builder.Services.AddScoped<ISupabaseAuthService, SupabaseAuthService>();
 
 var app = builder.Build();

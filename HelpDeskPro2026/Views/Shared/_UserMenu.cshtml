@@ -1,0 +1,56 @@
+﻿@using System.Security.Claims
+
+@{
+    var nombre = User.Identity?.Name ?? "Usuario";
+    var foto = User.FindFirst("FotoUrl")?.Value;
+}
+
+<div class="dropdown">
+
+    <a class="nav-link dropdown-toggle text-white d-flex align-items-center"
+       href="#"
+       role="button"
+       data-bs-toggle="dropdown"
+       aria-expanded="false">
+
+        <img src="@(string.IsNullOrEmpty(foto)
+                    ? "https://via.placeholder.com/40"
+                    : foto)"
+             class="rounded-circle me-2"
+             width="40"
+             height="40"
+             style="object-fit:cover;" />
+
+        <span>@nombre</span>
+
+    </a>
+
+    <ul class="dropdown-menu dropdown-menu-end">
+
+        <li>
+            <a class="dropdown-item"
+               asp-controller="Perfil"
+               asp-action="Index">
+
+                <i class="bi bi-person-circle"></i>
+                Mi Perfil
+
+            </a>
+        </li>
+
+        <li><hr class="dropdown-divider"></li>
+
+        <li>
+            <a class="dropdown-item text-danger"
+               asp-controller="Account"
+               asp-action="Logout">
+
+                <i class="bi bi-box-arrow-right"></i>
+                Cerrar sesión
+
+            </a>
+        </li>
+
+    </ul>
+
+</div>

@@ -1,96 +1,121 @@
 @model HelpDeskPro2026.Models.Usuario
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Crear Usuario";
 }
 
-<h1>Create</h1>
+<div class="d-flex justify-content-between align-items-center mb-4">
 
-<h4>Usuario</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+    <div>
+
+        <h2 class="fw-bold">
+
+            <i class="bi bi-person-plus-fill text-primary"></i>
+
+            Nuevo Usuario
+
+        </h2>
+
+        <p class="text-muted mb-0">
+
+            Registre un nuevo usuario en la plataforma.
+
+        </p>
+
+    </div>
+
+    <a asp-action="Index"
+       class="btn btn-outline-secondary">
+
+        <i class="bi bi-arrow-left"></i>
+
+        Volver
+
+    </a>
+
+</div>
+
+<div class="row justify-content-center">
+
+    <div class="col-lg-7">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body">
+
         <form asp-action="Create">
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <div class="form-group">
-                <label asp-for="SupabaseUserId" class="control-label"></label>
-                <input asp-for="SupabaseUserId" class="form-control" />
-                <span asp-validation-for="SupabaseUserId" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Nombre" class="control-label"></label>
+            <div class="mb-3">
+                <label asp-for="Nombre" class="form-label"></label>
                 <input asp-for="Nombre" class="form-control" />
                 <span asp-validation-for="Nombre" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="Apellidos" class="control-label"></label>
+            <div class="mb-3">
+                <label asp-for="Apellidos" class="form-label"></label>
                 <input asp-for="Apellidos" class="form-control" />
                 <span asp-validation-for="Apellidos" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="Correo" class="control-label"></label>
+            <div class="mb-3">
+                <label asp-for="Correo" class="form-label"></label>
                 <input asp-for="Correo" class="form-control" />
                 <span asp-validation-for="Correo" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="FotoUrl" class="control-label"></label>
-                <input asp-for="FotoUrl" class="form-control" />
-                <span asp-validation-for="FotoUrl" class="text-danger"></span>
-            </div>
+            <div class="mb-3">
+                <label asp-for="RolId" class="form-label"></label>
 
-            <div class="form-group">
-                <label asp-for="Activo" class="control-label"></label>
-                <input asp-for="Activo" class="form-check-input" />
-                <span asp-validation-for="Activo" class="text-danger"></span>
-            </div>
+                <select asp-for="RolId"
+                        asp-items="ViewBag.RolId"
+                        class="form-select">
 
-            <div class="form-group">
-                <label asp-for="FechaCreacion" class="control-label"></label>
-                <input asp-for="FechaCreacion" class="form-control" />
-                <span asp-validation-for="FechaCreacion" class="text-danger"></span>
-            </div>
+                    <option value="">Seleccione un rol</option>
 
-            <div class="form-group">
-                <label asp-for="FechaActualizacion" class="control-label"></label>
-                <input asp-for="FechaActualizacion" class="form-control" />
-                <span asp-validation-for="FechaActualizacion" class="text-danger"></span>
-            </div>
+                </select>
 
-            <div class="form-group">
-                <label asp-for="UltimoAcceso" class="control-label"></label>
-                <input asp-for="UltimoAcceso" class="form-control" />
-                <span asp-validation-for="UltimoAcceso" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="RolId" class="control-label"></label>
-                <input asp-for="RolId" class="form-control" />
                 <span asp-validation-for="RolId" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="Rol" class="control-label"></label>
-                <input asp-for="Rol" class="form-control" />
-                <span asp-validation-for="Rol" class="text-danger"></span>
+            <div class="form-check mb-3">
+                <input asp-for="Activo" class="form-check-input" />
+                <label asp-for="Activo" class="form-check-label"></label>
             </div>
 
-            <div class="form-group">
-                <label asp-for="NombreCompleto" class="control-label"></label>
-                <input asp-for="NombreCompleto" class="form-control" />
-                <span asp-validation-for="NombreCompleto" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
+                    <div class="d-flex gap-2 mt-4">
+
+                        <button type="submit"
+                                class="btn btn-primary">
+
+                            <i class="bi bi-check-circle-fill"></i>
+
+                            Guardar
+
+                        </button>
+
+                        <a asp-action="Index"
+                           class="btn btn-outline-secondary">
+
+                            <i class="bi bi-arrow-left"></i>
+
+                            Volver
+
+                        </a>
+
+                    </div>
+
         </form>
+            </div>
+
+        </div>
+
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -9,5 +9,7 @@ namespace HelpDeskPro2026.Interfaces
         Task SignOutAsync();
 
         User? GetCurrentUser();
+
+        Task<string?> CreateUserAsync(string email, string password);
     }
 }

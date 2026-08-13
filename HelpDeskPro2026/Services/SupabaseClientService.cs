@@ -6,22 +6,36 @@ namespace HelpDeskPro2026.Services
 {
     public class SupabaseClientService
     {
-        private readonly Client _client;
+        private readonly Client _authClient;
+        private readonly Client _storageClient;
 
         public SupabaseClientService(IOptions<SupabaseSettings> options)
         {
             var settings = options.Value;
 
-            _client = new Client(
+            // Cliente para Authentication
+            _authClient = new Client(
                 settings.Url,
-                settings.Key);
+                settings.AnonKey);
 
-            _client.InitializeAsync().Wait();
+            _authClient.InitializeAsync().Wait();
+
+            // Cliente para Storage
+            _storageClient = new Client(
+                settings.Url,
+                settings.ServiceRoleKey);
+
+            _storageClient.InitializeAsync().Wait();
         }
 
-        public Client GetClient()
+        public Client GetAuthClient()
         {
-            return _client;
+            return _authClient;
+        }
+
+        public Client GetStorageClient()
+        {
+            return _storageClient;
         }
     }
 }

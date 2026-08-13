@@ -2,9 +2,12 @@
 using HelpDeskPro2026.Data;
 using HelpDeskPro2026.Models;
 using HelpDeskPro2026.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+
+[Authorize]
 public class RiesgoController : Controller
 {
     private readonly IRiesgoService _riesgoService;

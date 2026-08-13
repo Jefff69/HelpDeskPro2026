@@ -2,9 +2,11 @@
 using HelpDeskPro2026.Data;
 using HelpDeskPro2026.Models;
 using HelpDeskPro2026.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+[Authorize]
 public class PrioridadController : Controller
 {
     private readonly IPrioridadService _prioridadService;

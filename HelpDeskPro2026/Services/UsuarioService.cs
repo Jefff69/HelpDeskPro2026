@@ -73,5 +73,35 @@ namespace HelpDeskPro2026.Services
             return await _context.Usuarios
                 .AnyAsync(u => u.Id == id);
         }
+
+        public async Task<Usuario?> ObtenerPorSupabaseUserIdAsync(string supabaseUserId)
+        {
+            return await _context.Usuarios
+                .Include(u => u.Rol)
+                .FirstOrDefaultAsync(u => u.SupabaseUserId == supabaseUserId);
+        }
+
+
+        public async Task ActualizarFotoAsync(int usuarioId, string fotoUrl)
+        {
+            var usuario = await _context.Usuarios.FindAsync(usuarioId);
+
+            if (usuario == null)
+                return;
+
+            usuario.FotoUrl = fotoUrl;
+            usuario.FechaActualizacion = DateTime.UtcNow;
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<string?> ObtenerFotoAsync(int usuarioId)
+        {
+            return await _context.Usuarios
+                .Where(u => u.Id == usuarioId)
+                .Select(u => u.FotoUrl)
+                .FirstOrDefaultAsync();
+        }
+
     }
 }
