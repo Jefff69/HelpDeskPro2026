@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-[Authorize]
+[Authorize(Roles = "Super Usuario,Administrador,Técnico")]
 public class CategoriaController : Controller
 {
     private readonly ICategoriaService _categoriaService;
@@ -122,7 +122,6 @@ public class CategoriaController : Controller
 
                 throw;
             }
-            return RedirectToAction(nameof(Index));
         }
         return View(categoria);
     }

@@ -16,9 +16,21 @@ namespace HelpDeskPro2026.Services
         {
             var client = _supabaseClient.GetAuthClient();
 
-            var session = await client.Auth.SignIn(email, password);
+            try
+            {
+                var session = await client.Auth.SignIn(email, password);
 
-            return session?.User;
+                return session?.User;
+            }
+            catch (Supabase.Gotrue.Exceptions.GotrueException ex)
+            {
+                if (ex.Message.Contains("invalid_credentials"))
+                {
+                    return null;
+                }
+
+                throw;
+            }
         }
 
         public async Task SignOutAsync()

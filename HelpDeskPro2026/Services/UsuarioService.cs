@@ -48,11 +48,47 @@ namespace HelpDeskPro2026.Services
 
         public async Task ActualizarAsync(Usuario usuario)
         {
-            _context.Usuarios.Update(usuario);
+            var usuarioExistente = await _context.Usuarios
+                .FirstOrDefaultAsync(u => u.Id == usuario.Id);
+
+            if (usuarioExistente == null)
+            {
+                throw new InvalidOperationException(
+                    "El usuario que intenta actualizar no existe.");
+            }
+
+            usuarioExistente.Nombre = usuario.Nombre;
+            usuarioExistente.Apellidos = usuario.Apellidos;
+            usuarioExistente.Correo = usuario.Correo;
+            usuarioExistente.RolId = usuario.RolId;
+            usuarioExistente.Activo = usuario.Activo;
+
+            usuarioExistente.FechaActualizacion = DateTime.UtcNow;
 
             await _context.SaveChangesAsync();
         }
 
+
+        public async Task ActualizarPerfilAsync(
+            int usuarioId,
+            string nombre,
+            string apellidos)
+        {
+            var usuario = await _context.Usuarios
+                .FirstOrDefaultAsync(u => u.Id == usuarioId);
+
+            if (usuario == null)
+            {
+                throw new InvalidOperationException(
+                    "El usuario que intenta actualizar no existe.");
+            }
+
+            usuario.Nombre = nombre;
+            usuario.Apellidos = apellidos;
+            usuario.FechaActualizacion = DateTime.UtcNow;
+
+            await _context.SaveChangesAsync();
+        }
 
 
         public async Task EliminarAsync(int id)

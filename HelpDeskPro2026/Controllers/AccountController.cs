@@ -52,6 +52,12 @@ namespace HelpDeskPro2026.Controllers
                 return View(model);
             }
 
+            if (!usuario.Activo)
+            {
+                ModelState.AddModelError("", "Su usuario se encuentra inactivo. Contacte al administrador.");
+                return View(model);
+            }
+
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
@@ -83,7 +89,7 @@ namespace HelpDeskPro2026.Controllers
             await HttpContext.SignOutAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme);
 
-            return RedirectToAction("Login");
+            return RedirectToAction("Index", "Home");
         }
 
     }

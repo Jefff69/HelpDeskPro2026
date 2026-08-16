@@ -1,38 +1,167 @@
 @model HelpDeskPro2026.Models.Riesgo
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles del Riesgo";
 }
 
-<h1>Details</h1>
+<div class="d-flex justify-content-between align-items-center mb-4">
 
-<div>
-    <h4>Riesgo</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Color)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Color)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-    </dl>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Activo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Activo)
-        </dd>
-    </dl>
+    <div>
+
+        <h2 class="fw-bold">
+
+            <i class="bi bi-eye-fill text-info"></i>
+
+            Detalles del Riesgo
+
+        </h2>
+
+        <p class="text-muted mb-0">
+
+            Información del nivel de riesgo seleccionado.
+
+        </p>
+
+    </div>
+
+    <a asp-action="Index"
+       class="btn btn-outline-secondary">
+
+        <i class="bi bi-arrow-left"></i>
+
+        Volver
+
+    </a>
+
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+
+
+<div class="card shadow-sm mx-auto" style="max-width: 700px;">
+
+    <div class="card-body">
+
+        <!-- Nombre -->
+
+        <div class="mb-4">
+
+            <label class="form-label fw-bold">
+
+                Nombre del Riesgo
+
+            </label>
+
+            <div class="form-control bg-light">
+
+                @Model.Nombre
+
+            </div>
+
+        </div>
+
+
+        <!-- Nivel de riesgo -->
+
+        <div class="mb-4">
+
+            <label class="form-label fw-bold">
+
+                Nivel de Riesgo
+
+            </label>
+
+            <div class="form-control bg-light">
+
+                @if (Model.Color == "#28a745")
+                {
+                    <span>
+                        🟢 Bajo
+                    </span>
+                }
+                else if (Model.Color == "#ffc107")
+                {
+                    <span>
+                        🟡 Medio
+                    </span>
+                }
+                else if (Model.Color == "#fd7e14")
+                {
+                    <span>
+                        🟠 Alto
+                    </span>
+                }
+                else if (Model.Color == "#dc3545")
+                {
+                    <span>
+                        🔴 Crítico
+                    </span>
+                }
+                else
+                {
+                    <span>
+                        Nivel no definido
+                    </span>
+                }
+
+            </div>
+
+        </div>
+
+
+        <!-- Estado -->
+
+        <div class="mb-4">
+
+            <label class="form-label fw-bold">
+
+                Estado
+
+            </label>
+
+            <div>
+
+                @if (Model.Activo)
+                {
+                    <span class="badge bg-success">
+
+                        Activo
+
+                    </span>
+                }
+                else
+                {
+                    <span class="badge bg-danger">
+
+                        Inactivo
+
+                    </span>
+                }
+
+            </div>
+
+        </div>
+
+
+        <!-- Botones -->
+
+        <a asp-action="Edit"
+           asp-route-id="@Model.Id"
+           class="btn btn-warning">
+
+            <i class="bi bi-pencil-fill"></i>
+
+            Editar
+
+        </a>
+
+        <a asp-action="Index"
+           class="btn btn-outline-secondary">
+
+            <i class="bi bi-arrow-left"></i>
+
+            Volver
+
+        </a>
+
+    </div>
+
 </div>

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-[Authorize]
+[Authorize(Roles = "Super Usuario,Administrador,Técnico")]
 public class SistemaController : Controller
 {
     private readonly ISistemaService _sistemaService;

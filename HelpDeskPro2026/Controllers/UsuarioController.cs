@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
-[Authorize]
+[Authorize(Roles = "Super Usuario,Administrador")]
 public class UsuarioController : Controller
 {
     private readonly IUsuarioService _usuarioService;
@@ -137,10 +137,18 @@ public class UsuarioController : Controller
         }
 
         var usuario = await _usuarioService.ObtenerPorIdAsync(id.Value);
+
         if (usuario == null)
         {
             return NotFound();
         }
+
+        ViewData["RolId"] = new SelectList(
+            _context.Roles,
+            "Id",
+            "Nombre",
+            usuario.RolId);
+
         return View(usuario);
     }
 
@@ -175,7 +183,7 @@ public class UsuarioController : Controller
 
                 throw;
             }
-            return RedirectToAction(nameof(Index));
+
         }
         return View(usuario);
     }

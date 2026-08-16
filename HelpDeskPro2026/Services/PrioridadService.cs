@@ -18,18 +18,16 @@ namespace HelpDeskPro2026.Services
             return await _context.Prioridades.ToListAsync();
         }
 
-
         public async Task<Prioridad?> ObtenerPorIdAsync(int id)
         {
             return await _context.Prioridades
-                .FirstOrDefaultAsync(c => c.Id == id);
+                .FirstOrDefaultAsync(p => p.Id == id);
         }
-
 
         public async Task CrearAsync(Prioridad prioridad)
         {
             bool existeNombre = await _context.Prioridades
-                .AnyAsync(c => c.Nombre == prioridad.Nombre);
+                .AnyAsync(p => p.Nombre == prioridad.Nombre);
 
             if (existeNombre)
             {
@@ -42,16 +40,12 @@ namespace HelpDeskPro2026.Services
             await _context.SaveChangesAsync();
         }
 
-
-
         public async Task ActualizarAsync(Prioridad prioridad)
         {
             _context.Prioridades.Update(prioridad);
 
             await _context.SaveChangesAsync();
         }
-
-
 
         public async Task EliminarAsync(int id)
         {
@@ -66,12 +60,7 @@ namespace HelpDeskPro2026.Services
 
         public async Task<bool> ExisteAsync(int id)
         {
-            return await _context.Prioridades.AnyAsync(c => c.Id == id);
+            return await _context.Prioridades.AnyAsync(p => p.Id == id);
         }
-
-
-
-
-
     }
 }

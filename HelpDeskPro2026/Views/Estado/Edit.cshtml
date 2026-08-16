@@ -1,39 +1,149 @@
 @model HelpDeskPro2026.Models.Estado
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Estado";
 }
 
-<h1>Edit</h1>
+<div class="d-flex justify-content-between align-items-center mb-4">
 
-<h4>Estado</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
-                <span asp-validation-for="Nombre" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Activo" class="control-label"></label>
-                <input asp-for="Activo" class="form-check-input" />
-                <span asp-validation-for="Activo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+    <div>
+
+        <h2 class="fw-bold">
+
+            <i class="bi bi-pencil-square text-warning"></i>
+
+            Editar Estado
+
+        </h2>
+
+        <p class="text-muted mb-0">
+
+            Modifique la información del estado seleccionado.
+
+        </p>
+
     </div>
+
+    <a asp-action="Index"
+       class="btn btn-outline-secondary">
+
+        <i class="bi bi-arrow-left"></i>
+
+        Volver
+
+    </a>
+
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+
+<div class="card shadow-sm mx-auto" style="max-width: 730px;">
+
+    <div class="card-body">
+
+        <form asp-action="Edit">
+
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger mb-3">
+            </div>
+
+            <input type="hidden" asp-for="Id" />
+
+
+            <!-- Nombre del estado -->
+
+            <div class="mb-3">
+
+                <label asp-for="Nombre"
+                       class="form-label fw-semibold">
+
+                    Estado
+
+                </label>
+
+                <select asp-for="Nombre"
+                        class="form-select">
+
+                    <option value="">
+                        Seleccione un estado...
+                    </option>
+
+                    <option value="Nuevo">
+                        🆕 Nuevo
+                    </option>
+
+                    <option value="En revisión">
+                        🔍 En revisión
+                    </option>
+
+                    <option value="En proceso">
+                        🔧 En proceso
+                    </option>
+
+                    <option value="Resuelto">
+                        ✅ Resuelto
+                    </option>
+
+                    <option value="Cerrado">
+                        🔒 Cerrado
+                    </option>
+
+                </select>
+
+                <span asp-validation-for="Nombre"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+
+            <!-- Estado activo -->
+
+            <div class="form-check mb-4">
+
+                <input asp-for="Activo"
+                       class="form-check-input" />
+
+                <label asp-for="Activo"
+                       class="form-check-label">
+
+                    Estado activo
+
+                </label>
+
+            </div>
+
+
+            <!-- Botones -->
+
+            <button type="submit"
+                    class="btn btn-warning">
+
+                <i class="bi bi-check-circle-fill"></i>
+
+                Guardar Cambios
+
+            </button>
+
+            <a asp-action="Index"
+               class="btn btn-outline-secondary">
+
+                <i class="bi bi-x-circle"></i>
+
+                Cancelar
+
+            </a>
+
+        </form>
+
+    </div>
+
 </div>
+
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
 }

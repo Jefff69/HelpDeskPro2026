@@ -13,11 +13,13 @@ namespace HelpDeskPro2026.Services
             _context = context;
         }
 
-        // Aquí comienza el primer método
+
         public async Task<List<Sistema>> ObtenerTodosAsync()
         {
-            return await _context.Sistemas.ToListAsync();
+            return await _context.Sistemas
+                .ToListAsync();
         }
+
 
         public async Task<Sistema?> ObtenerPorIdAsync(int id)
         {
@@ -37,6 +39,17 @@ namespace HelpDeskPro2026.Services
                     "Ya existe un sistema con ese código.");
             }
 
+
+            bool existeNombre = await _context.Sistemas
+                .AnyAsync(s => s.Nombre == sistema.Nombre);
+
+            if (existeNombre)
+            {
+                throw new InvalidOperationException(
+                    "Ya existe un sistema con ese nombre.");
+            }
+
+
             _context.Sistemas.Add(sistema);
 
             await _context.SaveChangesAsync();
@@ -45,25 +58,54 @@ namespace HelpDeskPro2026.Services
 
         public async Task ActualizarAsync(Sistema sistema)
         {
+            bool existeCodigo = await _context.Sistemas
+                .AnyAsync(s =>
+                    s.Codigo == sistema.Codigo &&
+                    s.Id != sistema.Id);
+
+            if (existeCodigo)
+            {
+                throw new InvalidOperationException(
+                    "Ya existe otro sistema con ese código.");
+            }
+
+
+            bool existeNombre = await _context.Sistemas
+                .AnyAsync(s =>
+                    s.Nombre == sistema.Nombre &&
+                    s.Id != sistema.Id);
+
+            if (existeNombre)
+            {
+                throw new InvalidOperationException(
+                    "Ya existe otro sistema con ese nombre.");
+            }
+
+
             _context.Sistemas.Update(sistema);
+
             await _context.SaveChangesAsync();
         }
 
 
         public async Task EliminarAsync(int id)
         {
-            var sistema = await _context.Sistemas.FindAsync(id);
+            var sistema = await _context.Sistemas
+                .FindAsync(id);
 
             if (sistema != null)
             {
                 _context.Sistemas.Remove(sistema);
+
                 await _context.SaveChangesAsync();
             }
         }
 
+
         public async Task<bool> ExisteAsync(int id)
         {
-            return await _context.Sistemas.AnyAsync(s => s.Id == id);
+            return await _context.Sistemas
+                .AnyAsync(s => s.Id == id);
         }
 
     }

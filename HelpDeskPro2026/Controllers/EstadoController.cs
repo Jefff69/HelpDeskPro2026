@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-[Authorize]
+[Authorize(Roles = "Super Usuario,Administrador,Técnico")]
 public class EstadoController : Controller
 {
     private readonly IEstadoService _estadoService;
@@ -122,7 +122,7 @@ public class EstadoController : Controller
 
                 throw;
             }
-            return RedirectToAction(nameof(Index));
+  
         }
         return View(estado);
     }

@@ -18,18 +18,16 @@ namespace HelpDeskPro2026.Services
             return await _context.Riesgos.ToListAsync();
         }
 
-
         public async Task<Riesgo?> ObtenerPorIdAsync(int id)
         {
             return await _context.Riesgos
-                .FirstOrDefaultAsync(c => c.Id == id);
+                .FirstOrDefaultAsync(r => r.Id == id);
         }
-
 
         public async Task CrearAsync(Riesgo riesgo)
         {
             bool existeNombre = await _context.Riesgos
-                .AnyAsync(c => c.Nombre == riesgo.Nombre);
+                .AnyAsync(r => r.Nombre == riesgo.Nombre);
 
             if (existeNombre)
             {
@@ -42,16 +40,12 @@ namespace HelpDeskPro2026.Services
             await _context.SaveChangesAsync();
         }
 
-
-
         public async Task ActualizarAsync(Riesgo riesgo)
         {
             _context.Riesgos.Update(riesgo);
 
             await _context.SaveChangesAsync();
         }
-
-
 
         public async Task EliminarAsync(int id)
         {
@@ -66,12 +60,7 @@ namespace HelpDeskPro2026.Services
 
         public async Task<bool> ExisteAsync(int id)
         {
-            return await _context.Riesgos.AnyAsync(c => c.Id == id);
+            return await _context.Riesgos.AnyAsync(r => r.Id == id);
         }
-
-
-
-
-
     }
 }

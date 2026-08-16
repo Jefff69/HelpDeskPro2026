@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 
-[Authorize]
+[Authorize(Roles = "Super Usuario,Administrador,Técnico")]
 public class RiesgoController : Controller
 {
     private readonly IRiesgoService _riesgoService;
@@ -122,7 +122,7 @@ public class RiesgoController : Controller
 
                 throw;
             }
-            return RedirectToAction(nameof(Index));
+           
         }
         return View(riesgo);
     }

@@ -78,7 +78,37 @@
 @foreach (var item in Model) {
         <tr>
                         <td>
-                            @Html.DisplayFor(model => item.Color)
+                            @if (item.Color == "#28a745")
+                            {
+                                <span class="badge bg-success">
+                                    Baja
+                                </span>
+                            }
+                            else if (item.Color == "#ffc107")
+                            {
+                                <span class="badge bg-warning text-dark">
+                                    Media
+                                </span>
+                            }
+                            else if (item.Color == "#fd7e14")
+                            {
+                                <span class="badge text-white"
+                                      style="background-color: #fd7e14;">
+                                    Alta
+                                </span>
+                            }
+                            else if (item.Color == "#dc3545")
+                            {
+                                <span class="badge bg-danger">
+                                    Urgente
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">
+                                    No definido
+                                </span>
+                            }
                         </td>
             <td>
                 @Html.DisplayFor(model => item.Nombre)
