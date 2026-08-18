@@ -1,0 +1,155 @@
+@model HelpDeskPro2026.Models.Estado
+
+@{
+    ViewData["Title"] = "Eliminar Estado";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+
+        <h2 class="fw-bold">
+
+            <i class="bi bi-trash-fill text-danger"></i>
+
+            Eliminar Estado
+
+        </h2>
+
+        <p class="text-muted mb-0">
+
+            Revise la información antes de eliminar este estado.
+
+        </p>
+
+    </div>
+
+    <a asp-action="Index"
+       class="btn btn-outline-secondary">
+
+        <i class="bi bi-arrow-left"></i>
+
+        Volver
+
+    </a>
+
+</div>
+
+
+<div class="card shadow-sm mx-auto" style="max-width: 730px;">
+
+    <div class="card-body">
+
+        <div class="alert alert-warning">
+
+            <i class="bi bi-exclamation-triangle-fill"></i>
+
+            <strong>¿Está seguro de que desea eliminar este estado?</strong>
+
+            <br />
+
+            Esta acción no se puede deshacer.
+
+        </div>
+
+
+        <dl class="row">
+
+            <dt class="col-sm-4">
+                Estado
+            </dt>
+
+            <dd class="col-sm-8">
+
+                @if (Model.Nombre == "Nuevo")
+                {
+                    <span class="badge bg-primary">
+                        🆕 Nuevo
+                    </span>
+                }
+                else if (Model.Nombre == "En revisión")
+                {
+                    <span class="badge bg-info text-dark">
+                        🔍 En revisión
+                    </span>
+                }
+                else if (Model.Nombre == "En proceso")
+                {
+                    <span class="badge bg-warning text-dark">
+                        🔧 En proceso
+                    </span>
+                }
+                else if (Model.Nombre == "Resuelto")
+                {
+                    <span class="badge bg-success">
+                        ✅ Resuelto
+                    </span>
+                }
+                else if (Model.Nombre == "Cerrado")
+                {
+                    <span class="badge bg-secondary">
+                        🔒 Cerrado
+                    </span>
+                }
+                else
+                {
+                    @Html.DisplayFor(model => model.Nombre)
+                }
+
+            </dd>
+
+
+            <dt class="col-sm-4">
+                Estado en el sistema
+            </dt>
+
+            <dd class="col-sm-8">
+
+                @if (Model.Activo)
+                {
+                    <span class="badge bg-success">
+                        Activo
+                    </span>
+                }
+                else
+                {
+                    <span class="badge bg-danger">
+                        Inactivo
+                    </span>
+                }
+
+            </dd>
+
+        </dl>
+
+
+        <hr />
+
+
+        <form asp-action="Delete">
+
+            <input type="hidden" asp-for="Id" />
+
+            <button type="submit"
+                    class="btn btn-danger">
+
+                <i class="bi bi-trash-fill"></i>
+
+                Sí, eliminar
+
+            </button>
+
+            <a asp-action="Index"
+               class="btn btn-outline-secondary">
+
+                <i class="bi bi-x-circle"></i>
+
+                Cancelar
+
+            </a>
+
+        </form>
+
+    </div>
+
+</div>

@@ -1,0 +1,153 @@
+@model HelpDeskPro2026.Models.Riesgo
+
+@{
+    ViewData["Title"] = "Editar Riesgo";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+
+        <h2 class="fw-bold">
+            <i class="bi bi-pencil-square text-warning"></i>
+            Editar Riesgo
+        </h2>
+
+        <p class="text-muted mb-0">
+            Modifique la información del nivel de riesgo seleccionado.
+        </p>
+
+    </div>
+
+    <a asp-action="Index"
+       class="btn btn-outline-secondary">
+
+        <i class="bi bi-arrow-left"></i>
+
+        Volver
+
+    </a>
+
+</div>
+
+
+<div class="card shadow-sm mx-auto" style="max-width: 700px;">
+
+    <div class="card-body">
+
+        <form asp-action="Edit" method="post">
+
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger mb-3">
+            </div>
+
+            <input type="hidden" asp-for="Id" />
+
+
+            <!-- Nombre -->
+
+            <div class="mb-3">
+
+                <label asp-for="Nombre"
+                       class="form-label">
+                    Nombre del Riesgo
+                </label>
+
+                <input asp-for="Nombre"
+                       class="form-control" />
+
+                <span asp-validation-for="Nombre"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+
+            <!-- Color -->
+
+            <div class="mb-3">
+
+                <label asp-for="Color"
+                       class="form-label">
+                    Nivel de Riesgo
+                </label>
+
+                <select asp-for="Color"
+                        class="form-select">
+
+                    <option value="#28a745">
+                        🟢 Bajo
+                    </option>
+
+                    <option value="#ffc107">
+                        🟡 Medio
+                    </option>
+
+                    <option value="#fd7e14">
+                        🟠 Alto
+                    </option>
+
+                    <option value="#dc3545">
+                        🔴 Crítico
+                    </option>
+
+                </select>
+
+                <span asp-validation-for="Color"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+
+            <!-- Estado -->
+
+            <div class="form-check mb-4">
+
+                <input asp-for="Activo"
+                       class="form-check-input" />
+
+                <label asp-for="Activo"
+                       class="form-check-label">
+
+                    Riesgo activo
+
+                </label>
+
+            </div>
+
+
+            <!-- Botones -->
+
+            <button type="submit"
+                    class="btn btn-warning">
+
+                <i class="bi bi-check-circle-fill"></i>
+
+                Guardar Cambios
+
+            </button>
+
+            <a asp-action="Index"
+               class="btn btn-outline-secondary">
+
+                <i class="bi bi-arrow-left"></i>
+
+                Volver
+
+            </a>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+@section Scripts {
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}

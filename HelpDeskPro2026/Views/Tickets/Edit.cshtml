@@ -1,0 +1,263 @@
+﻿@model HelpDeskPro2026.Models.ViewModels.TicketEditViewModel
+
+@{
+    ViewData["Title"] = $"Editar Ticket {Model.CodigoTicket}";
+}
+
+<div class="container py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h1 class="fw-bold">
+                <i class="bi bi-pencil-square text-primary"></i>
+                Editar Ticket
+            </h1>
+
+            <p class="text-muted mb-0">
+                Modificar información del ticket @Model.CodigoTicket
+            </p>
+        </div>
+
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i>
+            Volver
+        </a>
+
+    </div>
+
+
+    <div class="card shadow">
+
+        <div class="card-body p-4">
+
+            <form asp-action="Editar" method="post">
+
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="All"
+                     class="alert alert-danger">
+                </div>
+
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="CodigoTicket" />
+
+
+                <!-- CATÁLOGOS -->
+
+                <div class="row g-3 mb-4">
+
+                    <div class="col-md-6">
+
+                        <label asp-for="SistemaId"
+                               class="form-label fw-semibold">
+                            Sistema *
+                        </label>
+
+                        <select asp-for="SistemaId"
+                                asp-items="Model.Sistemas"
+                                class="form-select">
+
+                            <option value="">
+                                -- Seleccione un sistema --
+                            </option>
+
+                        </select>
+
+                        <span asp-validation-for="SistemaId"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <label asp-for="CategoriaId"
+                               class="form-label fw-semibold">
+                            Categoría *
+                        </label>
+
+                        <select asp-for="CategoriaId"
+                                asp-items="Model.Categorias"
+                                class="form-select">
+
+                            <option value="">
+                                -- Seleccione una categoría --
+                            </option>
+
+                        </select>
+
+                        <span asp-validation-for="CategoriaId"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <label asp-for="RiesgoId"
+                               class="form-label fw-semibold">
+                            Riesgo *
+                        </label>
+
+                        <select asp-for="RiesgoId"
+                                asp-items="Model.Riesgos"
+                                class="form-select">
+
+                            <option value="">
+                                -- Seleccione un riesgo --
+                            </option>
+
+                        </select>
+
+                        <span asp-validation-for="RiesgoId"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <label asp-for="PrioridadId"
+                               class="form-label fw-semibold">
+                            Prioridad *
+                        </label>
+
+                        <select asp-for="PrioridadId"
+                                asp-items="Model.Prioridades"
+                                class="form-select">
+
+                            <option value="">
+                                -- Seleccione una prioridad --
+                            </option>
+
+                        </select>
+
+                        <span asp-validation-for="PrioridadId"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+
+                    <div class="col-md-6">
+
+                        <label asp-for="EstadoId"
+                               class="form-label fw-semibold">
+                            Estado *
+                        </label>
+
+                        <select asp-for="EstadoId"
+                                asp-items="Model.Estados"
+                                class="form-select">
+
+                            <option value="">
+                                -- Seleccione un estado --
+                            </option>
+
+                        </select>
+
+                        <span asp-validation-for="EstadoId"
+                              class="text-danger">
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <hr class="mb-4" />
+
+
+                <!-- INFORMACIÓN DEL TICKET -->
+
+                <div class="mb-3">
+
+                    <label asp-for="Asunto"
+                           class="form-label fw-semibold">
+                        Asunto *
+                    </label>
+
+                    <input asp-for="Asunto"
+                           class="form-control" />
+
+                    <span asp-validation-for="Asunto"
+                          class="text-danger">
+                    </span>
+
+                </div>
+
+
+                <div class="mb-3">
+
+                    <label asp-for="Descripcion"
+                           class="form-label fw-semibold">
+                        Descripción *
+                    </label>
+
+                    <textarea asp-for="Descripcion"
+                              class="form-control"
+                              rows="5"></textarea>
+
+                    <span asp-validation-for="Descripcion"
+                          class="text-danger">
+                    </span>
+
+                </div>
+
+
+                <div class="mb-4">
+
+                    <label asp-for="Justificacion"
+                           class="form-label fw-semibold">
+                        Justificación
+                    </label>
+
+                    <textarea asp-for="Justificacion"
+                              class="form-control"
+                              rows="3"></textarea>
+
+                    <span asp-validation-for="Justificacion"
+                          class="text-danger">
+                    </span>
+
+                </div>
+
+
+                <!-- BOTONES -->
+
+                <div class="d-flex gap-2">
+
+                    <button type="submit"
+                            class="btn btn-primary">
+
+                        <i class="bi bi-save me-1"></i>
+                        Guardar Cambios
+
+                    </button>
+
+                    <a asp-action="Index"
+                       class="btn btn-secondary">
+
+                        Cancelar
+
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

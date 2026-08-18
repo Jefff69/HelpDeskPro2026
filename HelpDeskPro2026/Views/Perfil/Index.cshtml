@@ -1,0 +1,141 @@
+﻿@model HelpDeskPro2026.ViewModels.PerfilViewModel
+
+@{
+    ViewData["Title"] = "Mi Perfil";
+}
+
+<h2 class="mb-4">Mi Perfil</h2>
+
+<form asp-action="Index"
+      asp-controller="Perfil"
+      method="post"
+      enctype="multipart/form-data">
+
+    @Html.AntiForgeryToken()
+
+    <div class="card shadow-sm">
+
+        <div class="card-body">
+
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger mb-3">
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Nombre" class="form-label">
+                    Nombre
+                </label>
+
+                <input asp-for="Nombre"
+                       class="form-control" />
+
+                <span asp-validation-for="Nombre"
+                      class="text-danger">
+                </span>
+            </div>
+
+
+            <div class="mb-3">
+                <label asp-for="Apellidos" class="form-label">
+                    Apellidos
+                </label>
+
+                <input asp-for="Apellidos"
+                       class="form-control" />
+
+                <span asp-validation-for="Apellidos"
+                      class="text-danger">
+                </span>
+            </div>
+
+
+            <div class="mb-3">
+                <label asp-for="Correo" class="form-label">
+                    Correo
+                </label>
+
+                <input asp-for="Correo"
+                       class="form-control"
+                       readonly />
+
+                <span asp-validation-for="Correo"
+                      class="text-danger"></span>
+            </div>
+
+
+            <div class="mb-3">
+                <label asp-for="Rol" class="form-label">
+                    Rol
+                </label>
+
+                <input asp-for="Rol"
+                       class="form-control"
+                       readonly />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">
+                    Estado
+                </label>
+
+                <input class="form-control"
+                       value="@(Model.Activo ? "Activo" : "Inactivo")"
+                       readonly />
+            </div>
+
+
+            <div class="mb-3">
+
+                <label asp-for="Foto"
+                       class="form-label">
+                    Fotografía
+                </label>
+
+                @if (!string.IsNullOrEmpty(Model.FotoUrl))
+                {
+                    <div class="mb-3">
+                        <img src="@Model.FotoUrl"
+                             width="180"
+                             height="180"
+                             class="img-thumbnail rounded"
+                             style="object-fit: cover;" />
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-secondary">
+                        El usuario aún no tiene una fotografía de perfil.
+                    </div>
+                }
+
+                <input asp-for="Foto"
+                       class="form-control"
+                       type="file"
+                       accept="image/*" />
+
+                <span asp-validation-for="Foto"
+                      class="text-danger">
+                </span>
+
+            </div>
+
+
+            <button type="submit"
+                    class="btn btn-primary">
+
+                <i class="bi bi-save"></i>
+                Guardar Cambios
+
+            </button>
+
+        </div>
+
+    </div>
+
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

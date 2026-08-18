@@ -4,6 +4,7 @@ using HelpDeskPro2026.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,52 +12,18 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HelpDeskPro2026.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260721214453_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.10")
+                .HasAnnotation("ProductVersion", "10.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("HelpDeskPro2026.Models.Adjunto", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("NombreArchivo")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("RutaArchivo")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<long>("TamanoBytes")
-                        .HasColumnType("bigint");
-
-                    b.Property<Guid>("TicketId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("TipoArchivo")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TicketId");
-
-                    b.ToTable("Adjuntos");
-                });
 
             modelBuilder.Entity("HelpDeskPro2026.Models.Categoria", b =>
                 {
@@ -82,34 +49,6 @@ namespace HelpDeskPro2026.Migrations
                         .IsUnique();
 
                     b.ToTable("Categorias", (string)null);
-                });
-
-            modelBuilder.Entity("HelpDeskPro2026.Models.Comentario", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("Fecha")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Texto")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("TicketId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TicketId");
-
-                    b.HasIndex("UsuarioId");
-
-                    b.ToTable("Comentarios");
                 });
 
             modelBuilder.Entity("HelpDeskPro2026.Models.Estado", b =>
@@ -263,72 +202,6 @@ namespace HelpDeskPro2026.Migrations
                     b.ToTable("Sistemas", (string)null);
                 });
 
-            modelBuilder.Entity("HelpDeskPro2026.Models.Ticket", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Asunto")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<int>("CategoriaId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CodigoTicket")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("Descripcion")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("EstadoId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Justificacion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PrioridadId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RiesgoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SistemaId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SolicitanteId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TecnicoAsignadoId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoriaId");
-
-                    b.HasIndex("EstadoId");
-
-                    b.HasIndex("PrioridadId");
-
-                    b.HasIndex("RiesgoId");
-
-                    b.HasIndex("SistemaId");
-
-                    b.HasIndex("SolicitanteId");
-
-                    b.HasIndex("TecnicoAsignadoId");
-
-                    b.ToTable("Tickets");
-                });
-
             modelBuilder.Entity("HelpDeskPro2026.Models.Usuario", b =>
                 {
                     b.Property<int>("Id")
@@ -389,94 +262,6 @@ namespace HelpDeskPro2026.Migrations
                     b.ToTable("Usuarios", (string)null);
                 });
 
-            modelBuilder.Entity("HelpDeskPro2026.Models.Adjunto", b =>
-                {
-                    b.HasOne("HelpDeskPro2026.Models.Ticket", "Ticket")
-                        .WithMany("ArchivosAdjuntos")
-                        .HasForeignKey("TicketId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Ticket");
-                });
-
-            modelBuilder.Entity("HelpDeskPro2026.Models.Comentario", b =>
-                {
-                    b.HasOne("HelpDeskPro2026.Models.Ticket", "Ticket")
-                        .WithMany("Comentarios")
-                        .HasForeignKey("TicketId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HelpDeskPro2026.Models.Usuario", "Usuario")
-                        .WithMany("Comentarios")
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Ticket");
-
-                    b.Navigation("Usuario");
-                });
-
-            modelBuilder.Entity("HelpDeskPro2026.Models.Ticket", b =>
-                {
-                    b.HasOne("HelpDeskPro2026.Models.Categoria", "Categoria")
-                        .WithMany()
-                        .HasForeignKey("CategoriaId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("HelpDeskPro2026.Models.Estado", "Estado")
-                        .WithMany()
-                        .HasForeignKey("EstadoId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("HelpDeskPro2026.Models.Prioridad", "Prioridad")
-                        .WithMany()
-                        .HasForeignKey("PrioridadId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("HelpDeskPro2026.Models.Riesgo", "Riesgo")
-                        .WithMany()
-                        .HasForeignKey("RiesgoId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("HelpDeskPro2026.Models.Sistema", "Sistema")
-                        .WithMany()
-                        .HasForeignKey("SistemaId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("HelpDeskPro2026.Models.Usuario", "Solicitante")
-                        .WithMany("TicketsCreados")
-                        .HasForeignKey("SolicitanteId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("HelpDeskPro2026.Models.Usuario", "TecnicoAsignado")
-                        .WithMany("TicketsAsignados")
-                        .HasForeignKey("TecnicoAsignadoId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.Navigation("Categoria");
-
-                    b.Navigation("Estado");
-
-                    b.Navigation("Prioridad");
-
-                    b.Navigation("Riesgo");
-
-                    b.Navigation("Sistema");
-
-                    b.Navigation("Solicitante");
-
-                    b.Navigation("TecnicoAsignado");
-                });
-
             modelBuilder.Entity("HelpDeskPro2026.Models.Usuario", b =>
                 {
                     b.HasOne("HelpDeskPro2026.Models.Rol", "Rol")
@@ -491,22 +276,6 @@ namespace HelpDeskPro2026.Migrations
             modelBuilder.Entity("HelpDeskPro2026.Models.Rol", b =>
                 {
                     b.Navigation("Usuarios");
-                });
-
-            modelBuilder.Entity("HelpDeskPro2026.Models.Ticket", b =>
-                {
-                    b.Navigation("ArchivosAdjuntos");
-
-                    b.Navigation("Comentarios");
-                });
-
-            modelBuilder.Entity("HelpDeskPro2026.Models.Usuario", b =>
-                {
-                    b.Navigation("Comentarios");
-
-                    b.Navigation("TicketsAsignados");
-
-                    b.Navigation("TicketsCreados");
                 });
 #pragma warning restore 612, 618
         }

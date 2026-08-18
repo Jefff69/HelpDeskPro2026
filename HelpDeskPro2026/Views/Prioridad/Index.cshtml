@@ -1,0 +1,166 @@
+@model IEnumerable<HelpDeskPro2026.Models.Prioridad>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+
+        <h2 class="fw-bold">
+
+            <i class="bi bi-fire text-warning"></i>
+
+            Gestión de Prioridades
+
+        </h2>
+
+        <p class="text-muted mb-0">
+
+            Administre las prioridades utilizadas para clasificar las incidencias.
+
+        </p>
+
+    </div>
+
+    <div>
+
+        <a asp-controller="Catalogo"
+           asp-action="Index"
+           class="btn btn-outline-secondary me-2">
+
+            <i class="bi bi-arrow-left"></i>
+
+            Volver
+
+        </a>
+
+        <a asp-action="Create"
+           class="btn btn-warning text-dark">
+
+            <i class="bi bi-plus-circle-fill"></i>
+
+            Nueva Prioridad
+
+        </a>
+
+    </div>
+
+</div>
+
+
+<div class="card shadow-sm">
+
+    <div class="card-body">
+
+        <table class="table table-hover table-striped align-middle">
+            <thead class="table-dark">
+
+                <tr>
+
+                    <th>Color</th>
+
+                    <th>Nombre</th>
+
+                    <th>Estado</th>
+
+                    <th class="text-center">
+
+                        Acciones
+
+                    </th>
+
+                </tr>
+
+            </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+                        <td>
+                            @if (item.Color == "#28a745")
+                            {
+                                <span class="badge bg-success">
+                                    Baja
+                                </span>
+                            }
+                            else if (item.Color == "#ffc107")
+                            {
+                                <span class="badge bg-warning text-dark">
+                                    Media
+                                </span>
+                            }
+                            else if (item.Color == "#fd7e14")
+                            {
+                                <span class="badge text-white"
+                                      style="background-color: #fd7e14;">
+                                    Alta
+                                </span>
+                            }
+                            else if (item.Color == "#dc3545")
+                            {
+                                <span class="badge bg-danger">
+                                    Urgente
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">
+                                    No definido
+                                </span>
+                            }
+                        </td>
+            <td>
+                @Html.DisplayFor(model => item.Nombre)
+            </td>
+            <td>
+                            @if (item.Activo)
+                            {
+                                <span class="badge bg-success">
+                                    Activa
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">
+                                    Inactiva
+                                </span>
+                            }
+            </td>
+                        <td class="text-center">
+
+                            <a asp-action="Edit"
+                               asp-route-id="@item.Id"
+                               class="btn btn-warning btn-sm"
+                               title="Editar prioridad">
+
+                                <i class="bi bi-pencil-fill"></i>
+
+                            </a>
+
+                            <a asp-action="Details"
+                               asp-route-id="@item.Id"
+                               class="btn btn-info btn-sm text-white"
+                               title="Ver detalles">
+
+                                <i class="bi bi-eye-fill"></i>
+
+                            </a>
+
+                            <a asp-action="Delete"
+                               asp-route-id="@item.Id"
+                               class="btn btn-danger btn-sm"
+                               title="Eliminar prioridad">
+
+                                <i class="bi bi-trash-fill"></i>
+
+                            </a>
+
+                        </td>
+        </tr>
+}
+    </tbody>
+</table>
+    </div>
+
+</div>

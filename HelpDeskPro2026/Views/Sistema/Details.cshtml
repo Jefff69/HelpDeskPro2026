@@ -1,0 +1,187 @@
+@model HelpDeskPro2026.Models.Sistema
+
+@{
+    ViewData["Title"] = "Detalles del Sistema";
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="fw-bold">
+
+                <i class="bi bi-pc-display text-primary"></i>
+
+                Detalles del Sistema
+
+            </h2>
+
+            <p class="text-muted mb-0">
+
+                Información del sistema seleccionado.
+
+            </p>
+
+        </div>
+
+        <a asp-action="Index"
+           class="btn btn-outline-secondary">
+
+            <i class="bi bi-arrow-left"></i>
+
+            Volver
+
+        </a>
+
+    </div>
+
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-7">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+
+                    <div class="text-center mb-4">
+
+                        <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center"
+                             style="width: 100px; height: 100px;">
+
+                            <i class="bi bi-pc-display text-primary"
+                               style="font-size: 3.5rem;"></i>
+
+                        </div>
+
+                        <h3 class="mt-3 mb-1">
+
+                            @Model.Nombre
+
+                        </h3>
+
+                        <p class="text-muted mb-0">
+
+                            @Model.Codigo
+
+                        </p>
+
+                    </div>
+
+
+                    <hr />
+
+
+                    <div class="row mb-4">
+
+                        <div class="col-md-6">
+
+                            <div class="text-muted small">
+
+                                <i class="bi bi-upc-scan"></i>
+
+                                Código
+
+                            </div>
+
+                            <div class="fw-semibold">
+
+                                @Model.Codigo
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <div class="text-muted small">
+
+                                <i class="bi bi-display"></i>
+
+                                Nombre
+
+                            </div>
+
+                            <div class="fw-semibold">
+
+                                @Model.Nombre
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="mb-4">
+
+                        <div class="text-muted small mb-2">
+
+                            <i class="bi bi-toggle-on"></i>
+
+                            Estado
+
+                        </div>
+
+                        @if (Model.Activo)
+                        {
+                            <span class="badge bg-success">
+
+                                <i class="bi bi-check-circle-fill"></i>
+
+                                Activo
+
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger">
+
+                                <i class="bi bi-x-circle-fill"></i>
+
+                                Inactivo
+
+                            </span>
+                        }
+
+                    </div>
+
+
+                    <div class="d-flex gap-2">
+
+                        <a asp-action="Edit"
+                           asp-route-id="@Model.Id"
+                           class="btn btn-warning">
+
+                            <i class="bi bi-pencil-fill"></i>
+
+                            Editar
+
+                        </a>
+
+
+                        <a asp-action="Index"
+                           class="btn btn-outline-secondary">
+
+                            <i class="bi bi-arrow-left"></i>
+
+                            Volver
+
+                        </a>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
