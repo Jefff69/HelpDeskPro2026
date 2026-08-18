@@ -8,7 +8,7 @@ namespace HelpDeskPro2026.Models
         [Key]
         public int Id { get; set; }
 
-        // Se llenará cuando integremos Supabase Authentication
+        // Identificador del usuario en Supabase Authentication
         public string? SupabaseUserId { get; set; }
 
         [Required(ErrorMessage = "El nombre es obligatorio.")]
@@ -35,14 +35,27 @@ namespace HelpDeskPro2026.Models
 
         public DateTime? UltimoAcceso { get; set; }
 
-        // Llave foránea
+        // Llave foránea del rol
         public int RolId { get; set; }
 
         [ForeignKey("RolId")]
         public Rol? Rol { get; set; }
 
-        // Propiedad calculada (no se guarda en la base de datos)
+        // Propiedad calculada
         [NotMapped]
-        public string NombreCompleto => $"{Nombre} {Apellidos}";
+        public string NombreCompleto =>
+            $"{Nombre} {Apellidos}";
+
+        // Tickets creados por el usuario
+        public ICollection<Ticket> TicketsCreados { get; set; }
+            = new List<Ticket>();
+
+        // Tickets asignados al usuario como técnico
+        public ICollection<Ticket> TicketsAsignados { get; set; }
+            = new List<Ticket>();
+
+        // Comentarios realizados por el usuario
+        public ICollection<Comentario> Comentarios { get; set; }
+            = new List<Comentario>();
     }
 }

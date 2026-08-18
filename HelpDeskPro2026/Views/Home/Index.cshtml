@@ -76,11 +76,13 @@
     <div class="row">
 
         @* ============================
-           USUARIOS
-           Solo Super Usuario
+           TICKETS
+           Usuario, Técnico y Super Usuario
            ============================ *@
 
-        @if (User.IsInRole("Super Usuario"))
+        @if (User.IsInRole("Usuario") ||
+             User.IsInRole("Técnico") ||
+             User.IsInRole("Super Usuario"))
         {
             <div class="col-md-6 mb-4">
 
@@ -88,23 +90,23 @@
 
                     <div class="card-body text-center">
 
-                        <i class="bi bi-people-fill display-3 text-primary"></i>
+                        <i class="bi bi-ticket-detailed-fill display-3 text-primary"></i>
 
                         <h3 class="mt-3">
-                            Usuarios
+                            Tickets
                         </h3>
 
                         <p class="text-muted">
-                            Administre los usuarios del sistema,
-                            roles y fotografías de perfil.
+                            Consulte y gestione los tickets de soporte
+                            y el seguimiento de las incidencias.
                         </p>
 
-                        <a asp-controller="Usuario"
+                        <a asp-controller="Tickets"
                            asp-action="Index"
                            class="btn btn-primary">
 
                             <i class="bi bi-arrow-right-circle"></i>
-                            Ir al módulo
+                            Ver tickets
 
                         </a>
 
@@ -122,7 +124,7 @@
            ============================ *@
 
         @if (User.IsInRole("Super Usuario") ||
-            User.IsInRole("Técnico"))
+             User.IsInRole("Técnico"))
         {
             <div class="col-md-6 mb-4">
 
@@ -158,9 +160,160 @@
             </div>
         }
 
+
+        @* ============================
+           USUARIOS
+           Solo Super Usuario
+           ============================ *@
+
+        @if (User.IsInRole("Super Usuario"))
+        {
+            <div class="col-md-6 mb-4">
+
+                <div class="card shadow h-100">
+
+                    <div class="card-body text-center">
+
+                        <i class="bi bi-people-fill display-3 text-success"></i>
+
+                        <h3 class="mt-3">
+                            Usuarios
+                        </h3>
+
+                        <p class="text-muted">
+                            Administre los usuarios del sistema,
+                            roles y fotografías de perfil.
+                        </p>
+
+                        <a asp-controller="Usuario"
+                           asp-action="Index"
+                           class="btn btn-success">
+
+                            <i class="bi bi-arrow-right-circle"></i>
+                            Ir al módulo
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
     </div>
 }
+else
+{
+    @* ==========================================
+       USUARIO NO AUTENTICADO
+       PRESENTACIÓN DEL SISTEMA
+       ========================================== *@
 
+    <div class="row">
+
+        <!-- GESTIÓN DE TICKETS -->
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card shadow-sm h-100">
+
+                <div class="card-body text-center p-4">
+
+                    <i class="bi bi-ticket-detailed-fill display-3 text-primary"></i>
+
+                    <h4 class="mt-3">
+                        Gestión de Tickets
+                    </h4>
+
+                    <p class="text-muted">
+                        Registre, consulte y dé seguimiento a
+                        las incidencias y solicitudes de soporte
+                        de manera organizada.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- SOPORTE TÉCNICO -->
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card shadow-sm h-100">
+
+                <div class="card-body text-center p-4">
+
+                    <i class="bi bi-tools display-3 text-warning"></i>
+
+                    <h4 class="mt-3">
+                        Soporte Técnico
+                    </h4>
+
+                    <p class="text-muted">
+                        Facilite la atención de incidencias,
+                        asignación de técnicos y seguimiento
+                        de los estados de los tickets.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- SEGURIDAD -->
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card shadow-sm h-100">
+
+                <div class="card-body text-center p-4">
+
+                    <i class="bi bi-shield-lock-fill display-3 text-success"></i>
+
+                    <h4 class="mt-3">
+                        Acceso Seguro
+                    </h4>
+
+                    <p class="text-muted">
+                        El sistema utiliza autenticación y
+                        control de acceso basado en roles para
+                        proteger la información.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- BOTÓN DE LOGIN -->
+
+    <div class="text-center mt-3 mb-5">
+
+        <p class="text-muted mb-3">
+            ¿Ya tienes una cuenta?
+        </p>
+
+        <a asp-controller="Account"
+           asp-action="Login"
+           class="btn btn-primary btn-lg px-5">
+
+            <i class="bi bi-box-arrow-in-right me-2"></i>
+            Iniciar Sesión
+
+        </a>
+
+    </div>
+}
 
 
 

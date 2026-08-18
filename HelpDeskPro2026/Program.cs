@@ -49,6 +49,8 @@ builder.Services.AddScoped<IStorageService, StorageService>();
 
 builder.Services.AddScoped<ISupabaseAuthService, SupabaseAuthService>();
 
+builder.Services.AddScoped<ITicketService, TicketService>();
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())

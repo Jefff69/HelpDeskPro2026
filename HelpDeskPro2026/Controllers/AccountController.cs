@@ -44,7 +44,17 @@ namespace HelpDeskPro2026.Controllers
                 return View(model);
             }
 
-            var usuario = await _usuarioService.ObtenerPorSupabaseUserIdAsync(supabaseUser.Id);
+            if (string.IsNullOrWhiteSpace(supabaseUser.Id))
+            {
+                ModelState.AddModelError(
+                    "",
+                    "No se pudo obtener el identificador del usuario.");
+
+                return View(model);
+            }
+
+            var usuario = await _usuarioService
+                .ObtenerPorSupabaseUserIdAsync(supabaseUser.Id);
 
             if (usuario == null)
             {
