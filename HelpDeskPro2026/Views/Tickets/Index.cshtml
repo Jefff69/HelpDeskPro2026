@@ -35,11 +35,14 @@
 
             <form asp-action="Index" method="get">
 
+                <!-- PRIMERA FILA -->
                 <div class="row g-3">
 
-                    <div class="col-md-5">
+                    <!-- SISTEMA -->
+                    <div class="col-md-4">
 
-                        <label asp-for="SistemaId" class="form-label fw-semibold">
+                        <label asp-for="SistemaId"
+                               class="form-label fw-semibold">
                             Sistema
                         </label>
 
@@ -56,9 +59,11 @@
                     </div>
 
 
-                    <div class="col-md-5">
+                    <!-- ESTADO -->
+                    <div class="col-md-4">
 
-                        <label asp-for="EstadoId" class="form-label fw-semibold">
+                        <label asp-for="EstadoId"
+                               class="form-label fw-semibold">
                             Estado
                         </label>
 
@@ -75,14 +80,81 @@
                     </div>
 
 
-                    <div class="col-md-2 d-flex align-items-end">
+                    <!-- SOLICITANTE -->
+                    <div class="col-md-4">
 
-                        <button type="submit" class="btn btn-primary w-100">
+                        <label asp-for="SolicitanteId"
+                               class="form-label fw-semibold">
+                            Solicitante
+                        </label>
 
-                            <i class="bi bi-funnel"></i>
+                        <select asp-for="SolicitanteId"
+                                asp-items="Model.Solicitantes"
+                                class="form-select">
+
+                            <option value="">
+                                -- Todos los Solicitantes --
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SEGUNDA FILA -->
+                <div class="row g-3 mt-1">
+
+                    <!-- FECHA DESDE -->
+                    <div class="col-md-4">
+
+                        <label asp-for="FechaDesde"
+                               class="form-label fw-semibold">
+                            Fecha desde
+                        </label>
+
+                        <input asp-for="FechaDesde"
+                               type="date"
+                               class="form-control" />
+
+                    </div>
+
+
+                    <!-- FECHA HASTA -->
+                    <div class="col-md-4">
+
+                        <label asp-for="FechaHasta"
+                               class="form-label fw-semibold">
+                            Fecha hasta
+                        </label>
+
+                        <input asp-for="FechaHasta"
+                               type="date"
+                               class="form-control" />
+
+                    </div>
+
+
+                    <!-- BOTONES -->
+                    <div class="col-md-4 d-flex align-items-end gap-2">
+
+                        <button type="submit"
+                                class="btn btn-primary flex-grow-1">
+
+                            <i class="bi bi-funnel me-1"></i>
                             Filtrar
 
                         </button>
+
+
+                        <a asp-action="Index"
+                           class="btn btn-outline-secondary">
+
+                            <i class="bi bi-x-circle me-1"></i>
+                            Limpiar
+
+                        </a>
 
                     </div>
 
@@ -93,6 +165,9 @@
         </div>
 
     </div>
+
+
+
 
 
     <!-- TABLA -->

@@ -66,6 +66,31 @@ namespace HelpDeskPro2026.Controllers
                 query = query.Where(t => t.EstadoId == filtro.EstadoId.Value);
             }
 
+            // Filtro por solicitante
+            if (filtro.SolicitanteId.HasValue)
+            {
+                query = query.Where(t =>
+                    t.SolicitanteId == filtro.SolicitanteId.Value);
+            }
+
+            // Filtro por fecha desde
+            if (filtro.FechaDesde.HasValue)
+            {
+                var fechaDesde = filtro.FechaDesde.Value.Date;
+
+                query = query.Where(t =>
+                    t.FechaCreacion >= fechaDesde);
+            }
+
+            // Filtro por fecha hasta
+            if (filtro.FechaHasta.HasValue)
+            {
+                var fechaHasta = filtro.FechaHasta.Value.Date.AddDays(1);
+
+                query = query.Where(t =>
+                    t.FechaCreacion < fechaHasta);
+            }
+
             filtro.Tickets = await query
                 .OrderByDescending(t => t.FechaCreacion)
                 .Select(t => new TicketListItemViewModel
@@ -127,7 +152,26 @@ namespace HelpDeskPro2026.Controllers
                 "Id",
                 "Nombre");
 
+       
+
+
+            filtro.Solicitantes = new SelectList(
+                await _context.Usuarios
+                    .Where(u => u.Activo)
+                    .OrderBy(u => u.Nombre)
+                    .ThenBy(u => u.Apellidos)
+                    .Select(u => new
+                    {
+                        Id = u.Id,
+                        NombreCompleto = u.Nombre + " " + u.Apellidos
+                    })
+                    .ToListAsync(),
+                "Id",
+                "NombreCompleto");
+
             return View(filtro);
+
+
         }
 
 
