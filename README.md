@@ -6,7 +6,7 @@ HelpDesk Pro permite administrar usuarios, roles, catálogos y tickets de soport
 
  
 
-📋 Descripción del proyecto 
+Descripción del proyecto 
 
 HelpDesk Pro es una aplicación web desarrollada bajo el patrón ASP.NET Core MVC, diseñada para facilitar la administración de solicitudes de soporte técnico. 
 
@@ -16,7 +16,7 @@ El proyecto implementa autenticación y autorización basada en roles, permitien
 
  
 
-🎯 Objetivos 
+Objetivos 
 
 Desarrollar una plataforma web para la gestión de incidencias. 
 
@@ -38,9 +38,9 @@ Mantener la integridad de la información relacionada con los tickets.
 
  
 
-🚀 Funcionalidades principales 
+Funcionalidades principales 
 
-🔐 Autenticación y autorización 
+Autenticación y autorización 
 
 El sistema cuenta con inicio de sesión y control de acceso basado en roles. 
 
@@ -58,7 +58,7 @@ Cada rol posee diferentes permisos dentro de la aplicación.
 
  
 
-👥 Gestión de usuarios 
+Gestión de usuarios 
 
 Los usuarios con permisos administrativos pueden: 
 
@@ -78,7 +78,7 @@ Además, cada usuario dispone de una sección de Mi Perfil, donde puede actualiz
 
  
 
-🗂️ Gestión de catálogos 
+Gestión de catálogos 
 
 El sistema permite administrar los catálogos utilizados por los tickets: 
 
@@ -98,7 +98,7 @@ Los elementos relacionados con tickets no pueden eliminarse cuando su eliminaci�
 
  
 
-🎫 Gestión de tickets 
+Gestión de tickets 
 
 El módulo de tickets permite: 
 
@@ -128,7 +128,7 @@ Ejemplos:
 
 ```text CONT-00001 RRHH-00001 SOP-00001 
 
-🔎 Filtros de tickets 
+Filtros de tickets 
 
 El listado de tickets permite filtrar información mediante diferentes criterios: 
 
@@ -146,7 +146,7 @@ Esto facilita la consulta y seguimiento de las incidencias registradas.
 
  
 
-💬 Comentarios 
+Comentarios 
 
 Los usuarios pueden agregar comentarios a los tickets para mantener un historial de seguimiento. 
 
@@ -162,7 +162,7 @@ Fecha y hora.
 
  
 
-📎 Archivos adjuntos 
+Archivos adjuntos 
 
 Los tickets permiten almacenar archivos adjuntos asociados a cada incidencia. 
 
@@ -178,7 +178,7 @@ Los archivos pueden consultarse desde el detalle del ticket.
 
  
 
-👨‍💻 Asignación automática de técnicos 
+Asignación automática de técnicos 
 
 Al crear un ticket, el sistema puede asignarlo automáticamente al técnico con menor cantidad de casos activos. 
 
@@ -186,7 +186,7 @@ Esto permite distribuir las incidencias de manera más equilibrada entre los té
 
  
 
-🛡️ Control de acceso 
+Control de acceso 
 
 El sistema utiliza autorización basada en roles para restringir el acceso a los diferentes módulos. 
 
@@ -232,7 +232,7 @@ Cuenta con acceso completo a los módulos administrativos y de gestión del sist
 
  
 
-🏗️ Arquitectura 
+Arquitectura 
 
 El proyecto utiliza el patrón: 
 
@@ -306,7 +306,7 @@ Contienen la interfaz gráfica desarrollada con Razor y Bootstrap.
 
  
 
-🛠️ Tecnologías utilizadas 
+Tecnologías utilizadas 
 
 Tecnología 
 
@@ -358,7 +358,7 @@ Repositorio del proyecto
 
  
 
-🗄️ Base de datos 
+Base de datos 
 
 La aplicación utiliza SQL Server como sistema gestor de base de datos. 
 
@@ -388,7 +388,7 @@ Las relaciones entre estas entidades permiten mantener la información organizad
 
  
 
-🔑 Configuración 
+Configuración 
 
 Para ejecutar el proyecto localmente es necesario configurar los datos de conexión a la base de datos y los servicios de Supabase. 
 
@@ -408,7 +408,7 @@ según corresponda al entorno de ejecución.
 
  
 
-▶️ Ejecución del proyecto 
+Ejecución del proyecto 
 
 Requisitos 
 
@@ -444,7 +444,7 @@ dotnet run
 
  
 
-🧪 Pruebas realizadas 
+Pruebas realizadas 
 
 Durante el desarrollo se realizaron pruebas sobre: 
 
@@ -482,7 +482,7 @@ Restricciones de eliminación de catálogos relacionados con tickets.
 
  
 
-👨‍💻 Desarrollo 
+Desarrollo 
 
 Proyecto desarrollado para el curso: 
 
@@ -500,7 +500,7 @@ Natalia
 
  
 
-📌 Estado del proyecto 
+Estado del proyecto 
 
 Estado actual: Funcional 
 
@@ -510,7 +510,7 @@ Actualmente se encuentra en una etapa de mejoras, pruebas e integración, por lo
 
  
 
-🔮 Posibles mejoras futuras 
+Posibles mejoras futuras 
 
 Entre las mejoras que pueden incorporarse posteriormente se encuentran: 
 
@@ -536,7 +536,7 @@ Mejoras de experiencia de usuario.
 
  
 
-📄 Licencia 
+Licencia 
 
 Proyecto desarrollado con fines académicos para el curso Programación V de la Universidad Castro Carazo. 
 
