@@ -146,7 +146,6 @@ public class SistemaController : Controller
         return View(sistema);
     }
 
-    // POST: SISTEMAS/Delete/5
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int? id)
@@ -156,9 +155,16 @@ public class SistemaController : Controller
             return NotFound();
         }
 
-        await _sistemaService.EliminarAsync(id.Value);
+        try
+        {
+            await _sistemaService.EliminarAsync(id.Value);
 
-        TempData["Success"] = "El sistema se eliminó correctamente.";
+            TempData["Success"] = "El sistema se eliminó correctamente.";
+        }
+        catch (InvalidOperationException ex)
+        {
+            TempData["Error"] = ex.Message;
+        }
 
         return RedirectToAction(nameof(Index));
     }

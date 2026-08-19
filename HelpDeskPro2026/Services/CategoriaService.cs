@@ -57,12 +57,24 @@ namespace HelpDeskPro2026.Services
         {
             var categoria = await _context.Categorias.FindAsync(id);
 
-            if (categoria != null)
+            if (categoria == null)
+                return;
+
+            var tieneTickets = await _context.Tickets
+                .AnyAsync(t => t.CategoriaId == id);
+
+            if (tieneTickets)
             {
-                _context.Categorias.Remove(categoria);
-                await _context.SaveChangesAsync();
+                throw new InvalidOperationException(
+                    $"No se puede eliminar la categoría \"{categoria.Nombre}\" porque está asociada a uno o más tickets.");
             }
+
+            _context.Categorias.Remove(categoria);
+
+            await _context.SaveChangesAsync();
         }
+
+
 
         public async Task<bool> ExisteAsync(int id)
         {

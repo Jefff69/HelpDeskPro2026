@@ -154,9 +154,16 @@ public class RiesgoController : Controller
             return NotFound();
         }
 
-        await _riesgoService.EliminarAsync(id.Value);
+        try
+        {
+            await _riesgoService.EliminarAsync(id.Value);
 
-        TempData["Success"] = "El riesgo se eliminó correctamente.";
+            TempData["Success"] = "El riesgo se eliminó correctamente.";
+        }
+        catch (InvalidOperationException ex)
+        {
+            TempData["Error"] = ex.Message;
+        }
 
         return RedirectToAction(nameof(Index));
     }
