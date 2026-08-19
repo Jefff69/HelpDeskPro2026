@@ -95,12 +95,30 @@ namespace HelpDeskPro2026.Services
         {
             var usuario = await _context.Usuarios.FindAsync(id);
 
-            if (usuario != null)
-            {
-                _context.Usuarios.Remove(usuario);
+            if (usuario == null)
+                return;
 
-                await _context.SaveChangesAsync();
+            var tieneTicketsAsignados = await _context.Tickets
+                .AnyAsync(t => t.TecnicoAsignadoId == id);
+
+            if (tieneTicketsAsignados)
+            {
+                throw new InvalidOperationException(
+                    $"No se puede eliminar el usuario \"{usuario.NombreCompleto}\" porque tiene uno o más tickets asignados.");
             }
+
+            var tieneTicketsCreados = await _context.Tickets
+                .AnyAsync(t => t.SolicitanteId == id);
+
+            if (tieneTicketsCreados)
+            {
+                throw new InvalidOperationException(
+                    $"No se puede eliminar el usuario \"{usuario.NombreCompleto}\" porque tiene uno o más tickets creados.");
+            }
+
+            _context.Usuarios.Remove(usuario);
+
+            await _context.SaveChangesAsync();
         }
 
 

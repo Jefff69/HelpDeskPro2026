@@ -215,9 +215,16 @@ public class UsuarioController : Controller
             return NotFound();
         }
 
-        await _usuarioService.EliminarAsync(id.Value);
+        try
+        {
+            await _usuarioService.EliminarAsync(id.Value);
 
-        TempData["Success"] = "El usuario se eliminó correctamente.";
+            TempData["Success"] = "El usuario se eliminó correctamente.";
+        }
+        catch (InvalidOperationException ex)
+        {
+            TempData["Error"] = ex.Message;
+        }
 
         return RedirectToAction(nameof(Index));
     }
