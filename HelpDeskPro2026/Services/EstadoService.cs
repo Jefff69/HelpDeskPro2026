@@ -42,20 +42,43 @@ namespace HelpDeskPro2026.Services
 
         public async Task ActualizarAsync(Estado estado)
         {
+            bool existeNombre = await _context.Estados
+                .AnyAsync(e =>
+                    e.Nombre == estado.Nombre &&
+                    e.Id != estado.Id);
+
+            if (existeNombre)
+            {
+                throw new InvalidOperationException(
+                    "Ya existe otro estado con ese nombre.");
+            }
+
             _context.Estados.Update(estado);
 
             await _context.SaveChangesAsync();
         }
 
+
+
         public async Task EliminarAsync(int id)
         {
             var estado = await _context.Estados.FindAsync(id);
 
-            if (estado != null)
+            if (estado == null)
+                return;
+
+            var tieneTickets = await _context.Tickets
+                .AnyAsync(t => t.EstadoId == id);
+
+            if (tieneTickets)
             {
-                _context.Estados.Remove(estado);
-                await _context.SaveChangesAsync();
+                throw new InvalidOperationException(
+                    $"No se puede eliminar el estado \"{estado.Nombre}\" porque está asociado a uno o más tickets.");
             }
+
+            _context.Estados.Remove(estado);
+
+            await _context.SaveChangesAsync();
         }
 
         public async Task<bool> ExisteAsync(int id)

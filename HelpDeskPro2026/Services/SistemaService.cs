@@ -93,12 +93,21 @@ namespace HelpDeskPro2026.Services
             var sistema = await _context.Sistemas
                 .FindAsync(id);
 
-            if (sistema != null)
-            {
-                _context.Sistemas.Remove(sistema);
+            if (sistema == null)
+                return;
 
-                await _context.SaveChangesAsync();
+            var tieneTickets = await _context.Tickets
+                .AnyAsync(t => t.SistemaId == id);
+
+            if (tieneTickets)
+            {
+                throw new InvalidOperationException(
+                    $"No se puede eliminar el sistema \"{sistema.Nombre}\" porque está asociado a uno o más tickets.");
             }
+
+            _context.Sistemas.Remove(sistema);
+
+            await _context.SaveChangesAsync();
         }
 
 

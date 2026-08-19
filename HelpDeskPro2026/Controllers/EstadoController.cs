@@ -144,7 +144,6 @@ public class EstadoController : Controller
         return View(estado);
     }
 
-    // POST: ESTADOS/Delete/5
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int? id)
@@ -154,9 +153,16 @@ public class EstadoController : Controller
             return NotFound();
         }
 
-        await _estadoService.EliminarAsync(id.Value);
+        try
+        {
+            await _estadoService.EliminarAsync(id.Value);
 
-        TempData["Success"] = "El estado se eliminó correctamente.";
+            TempData["Success"] = "El estado se eliminó correctamente.";
+        }
+        catch (InvalidOperationException ex)
+        {
+            TempData["Error"] = ex.Message;
+        }
 
         return RedirectToAction(nameof(Index));
     }

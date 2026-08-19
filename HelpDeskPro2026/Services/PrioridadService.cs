@@ -47,16 +47,31 @@ namespace HelpDeskPro2026.Services
             await _context.SaveChangesAsync();
         }
 
+
+
         public async Task EliminarAsync(int id)
         {
             var prioridad = await _context.Prioridades.FindAsync(id);
 
-            if (prioridad != null)
+            if (prioridad == null)
+                return;
+
+            var tieneTickets = await _context.Tickets
+                .AnyAsync(t => t.PrioridadId == id);
+
+            if (tieneTickets)
             {
-                _context.Prioridades.Remove(prioridad);
-                await _context.SaveChangesAsync();
+                throw new InvalidOperationException(
+                    $"No se puede eliminar la prioridad \"{prioridad.Nombre}\" porque está asociada a uno o más tickets.");
             }
+
+            _context.Prioridades.Remove(prioridad);
+
+            await _context.SaveChangesAsync();
         }
+
+
+
 
         public async Task<bool> ExisteAsync(int id)
         {

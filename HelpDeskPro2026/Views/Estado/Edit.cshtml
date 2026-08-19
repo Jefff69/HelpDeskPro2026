@@ -40,7 +40,9 @@
 
     <div class="card-body">
 
-        <form asp-action="Edit">
+        <form asp-action="Edit" method="post">
+
+            @Html.AntiForgeryToken()
 
             <div asp-validation-summary="ModelOnly"
                  class="text-danger mb-3">
@@ -56,38 +58,13 @@
                 <label asp-for="Nombre"
                        class="form-label fw-semibold">
 
-                    Estado
+                    Nombre del estado
 
                 </label>
 
-                <select asp-for="Nombre"
-                        class="form-select">
-
-                    <option value="">
-                        Seleccione un estado...
-                    </option>
-
-                    <option value="Nuevo">
-                        🆕 Nuevo
-                    </option>
-
-                    <option value="En revisión">
-                        🔍 En revisión
-                    </option>
-
-                    <option value="En proceso">
-                        🔧 En proceso
-                    </option>
-
-                    <option value="Resuelto">
-                        ✅ Resuelto
-                    </option>
-
-                    <option value="Cerrado">
-                        🔒 Cerrado
-                    </option>
-
-                </select>
+                <input asp-for="Nombre"
+                       class="form-control"
+                       placeholder="Ejemplo: Esperando información" />
 
                 <span asp-validation-for="Nombre"
                       class="text-danger">

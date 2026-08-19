@@ -154,9 +154,16 @@ public class CategoriaController : Controller
             return NotFound();
         }
 
-        await _categoriaService.EliminarAsync(id.Value);
+        try
+        {
+            await _categoriaService.EliminarAsync(id.Value);
 
-        TempData["Success"] = "La categoría se eliminó correctamente.";
+            TempData["Success"] = "La categoría se eliminó correctamente.";
+        }
+        catch (InvalidOperationException ex)
+        {
+            TempData["Error"] = ex.Message;
+        }
 
         return RedirectToAction(nameof(Index));
     }

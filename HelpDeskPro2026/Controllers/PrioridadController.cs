@@ -144,7 +144,6 @@ public class PrioridadController : Controller
         return View(prioridad);
     }
 
-    // POST: PRIORIDADS/Delete/5
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int? id)
@@ -154,9 +153,16 @@ public class PrioridadController : Controller
             return NotFound();
         }
 
-        await _prioridadService.EliminarAsync(id.Value);
+        try
+        {
+            await _prioridadService.EliminarAsync(id.Value);
 
-        TempData["Success"] = "La prioridad se eliminó correctamente.";
+            TempData["Success"] = "La prioridad se eliminó correctamente.";
+        }
+        catch (InvalidOperationException ex)
+        {
+            TempData["Error"] = ex.Message;
+        }
 
         return RedirectToAction(nameof(Index));
     }

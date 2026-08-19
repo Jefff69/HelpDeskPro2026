@@ -47,16 +47,30 @@ namespace HelpDeskPro2026.Services
             await _context.SaveChangesAsync();
         }
 
+
+
         public async Task EliminarAsync(int id)
         {
             var riesgo = await _context.Riesgos.FindAsync(id);
 
-            if (riesgo != null)
+            if (riesgo == null)
+                return;
+
+            var tieneTickets = await _context.Tickets
+                .AnyAsync(t => t.RiesgoId == id);
+
+            if (tieneTickets)
             {
-                _context.Riesgos.Remove(riesgo);
-                await _context.SaveChangesAsync();
+                throw new InvalidOperationException(
+                    $"No se puede eliminar el riesgo \"{riesgo.Nombre}\" porque está asociado a uno o más tickets.");
             }
+
+            _context.Riesgos.Remove(riesgo);
+
+            await _context.SaveChangesAsync();
         }
+
+
 
         public async Task<bool> ExisteAsync(int id)
         {
